@@ -5,26 +5,28 @@ int my_strlen(const char * s)
     while(*(s + i))
         i++;
 
-    return i + 1;
+    return i;
 }
 
 char * my_strncpy(char * d, const char * s, int n)
 {
     for(int i = 0; i < n; i++)
         *(d + i) = *(s + i);
+    *(d + n) = 0;
     return d;
 }
 
 char * my_strcpy(char * d, const char * s)
 {
-    return my_strncpy(d, s, my_strlen(s));
+    return my_strncpy(d, s, my_strlen(s)+1);
 }
 
 char * my_strncat(char * d, const char * s, int n)
 {
     int len_of_d = my_strlen(d);
-    for(int i = len_of_d; i < len_of_d + n - 1; i++)
-        *(d + i - 1) = *(s + i - len_of_d);
+    for(int i = len_of_d; i < len_of_d + n; i++)
+        *(d + i) = *(s + i - len_of_d);
+    *(d + len_of_d + n) = 0;
     return d;
 }
 
@@ -58,7 +60,7 @@ char * my_strstr(const char * s1, const char * s2)
     int len_of_s2 = my_strlen(s2);
     char * p = my_strchr(s1, s2[0]);
 
-    for( int i = 0; i < len_of_s2 - 1; i++ )
+    for( int i = 0; i < len_of_s2; i++ )
     {
         if( *(p + i) != *(s2 + i)  )
         {
